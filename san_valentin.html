@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Una invitación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ivory: #f5f3ef;
+      --champagne: #e6dccf;
+      --olive: #7a8b6f;
+      --ink: #2b2b2b;
+      --muted: #8a8a8a;
+      --glass: rgba(255, 255, 255, 0.45);
+      --shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, var(--ivory), var(--champagne));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      color: var(--ink);
+      overflow: hidden;
+    }
+
+    .card {
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      padding: 52px 58px;
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      max-width: 460px;
+      width: 90%;
+      text-align: center;
+      animation: rise 1s ease forwards;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.3rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 120px;
+    }
+
+    button {
+      border-radius: 999px;
+      padding: 13px 34px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: absolute;
+      border: 1px solid transparent;
+    }
+
+    #yes {
+      background: var(--olive);
+      color: white;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+    }
+
+    #no {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid rgba(0,0,0,0.25);
+      top: 0;
+      left: 42%;
+    }
+
+    /* === ELECCIONES === */
+
+    .choices {
+      margin-top: 30px;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .choice {
+      padding: 24px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.6);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .choice:hover {
+      transform: translateY(-4px);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === BRILLITOS === */
+
+    .sparkle {
+      position: absolute;
+      font-size: 18px;
+      animation: sparkle 1.5s ease forwards;
+      pointer-events: none;
+    }
+
+    @keyframes sparkle {
+      from {
+        opacity: 0;
+        transform: translateY(0) scale(0.6);
+      }
+      30% {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.2);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <h1>¿Me concederías este San Valentín?</h1>
+    <p>Una invitación sencilla, con la promesa de buenos momentos y calma compartida mi princesa❤️.</p>
+
+    <div class="buttons">
+      <button id="yes">Aceptar</button>
+      <button id="no">Rechazar</button>
+    </div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const card = document.getElementById("card");
+
+    noBtn.addEventListener("mouseover", () => {
+      noBtn.style.left = Math.random() * 220 + "px";
+      noBtn.style.top = Math.random() * 80 + "px";
+    });
+
+    yesBtn.addEventListener("click", showChoices);
+
+    function showChoices() {
+      card.innerHTML = `
+        <h1>Perfecto.</h1>
+        <p>Será un placer compartir este San Valentín contigo.</p>
+
+        <div class="choices">
+          <p><strong>Elige uno</strong></p>
+          <div class="choice-grid">
+            <div class="choice" onclick="randomChoice()">Escoger aleatoriamente</div>
+            <div class="choice" onclick="askBoyfriend()">Preguntar al novio</div>
+          </div>
+        </div>
+      `;
+      launchSparkles();
+    }
+
+    function randomChoice() {
+      const plans = [
+        "Ir a un restaurante elegante y disfrutar sin prisas, esto será dependiendo de tu alcance mas seguro en OTAVALO❤️❤️.",
+        "Una limpieza facial profunda, cuidado y relajación absoluta🦖."
+      ];
+      const chosen = plans[Math.floor(Math.random() * plans.length)];
+
+      card.innerHTML = `
+        <h1>Decisión tomada</h1>
+        <p>${chosen}</p>
+      `;
+      launchSparkles();
+    }
+
+    function askBoyfriend() {
+      card.innerHTML = `
+        <h1>Me parece perfecto</h1>
+        <p>Te amitoo un montón cariño, eres mi felicidad, no sabes cuan feliz me haces todos los dias mi niña, 
+Tengo algunas opciones para que tu elijas solo PREGÚNTAME muaaaa💕.</p>
+      `;
+      launchSparkles();
+    }
+
+    function launchSparkles() {
+      for (let i = 0; i < 25; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.className = "sparkle";
+        sparkle.textContent = "✨";
+        sparkle.style.left = Math.random() * 100 + "vw";
+        sparkle.style.top = "70vh";
+        document.body.appendChild(sparkle);
+        setTimeout(() => sparkle.remove(), 1500);
+      }
+    }
+  </script>
+
+</body>
+</html>
